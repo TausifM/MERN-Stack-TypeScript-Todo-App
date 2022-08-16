@@ -1,0 +1,8 @@
+{
+  "env": {
+    "MONGO_USER": "Tausif",
+    "MONGO_URI": "mongodb://localhost:27017/Todo-App",
+    "MONGO_PASSWORD": "abc",
+    "MONGO_DB": "Todo-App"
+  }
+}
