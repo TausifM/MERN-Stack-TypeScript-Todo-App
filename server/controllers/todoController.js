@@ -8,15 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteTodo = exports.updateTodo = exports.addTodo = exports.getTodos = void 0;
-const todo_1 = __importDefault(require("../models/todo"));
+const Todo_1 = require("../models/Todo");
 const getTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const todos = yield todo_1.default.find();
+        const todos = yield Todo_1.Todo.find();
         res.status(200).json({
             todos,
         });
@@ -29,16 +26,12 @@ exports.getTodos = getTodos;
 const addTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
-        const todo = new todo_1.default({
-            name: body.name,
-            desc: body.desc,
-            status: body.status,
-        });
-        const newTodo = yield todo.save();
-        const allTodos = yield todo_1.default.find();
+        const newTodo = new Todo_1.Todo(body);
+        const savedTodo = yield newTodo.save();
+        const allTodos = yield Todo_1.Todo.find();
         res.status(201).json({
             message: "Todo added",
-            todo: newTodo,
+            todo: savedTodo,
             todos: allTodos,
         });
     }
@@ -50,8 +43,8 @@ exports.addTodo = addTodo;
 const updateTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { params: { id }, body, } = req;
-        const updateTodo = yield todo_1.default.findByIdAndUpdate({ _id: id }, body);
-        const allTodos = yield todo_1.default.find();
+        const updateTodo = yield Todo_1.Todo.findByIdAndUpdate({ _id: id }, body);
+        const allTodos = yield Todo_1.Todo.find();
         res.status(201).json({
             message: "Todo Updated",
             todo: updateTodo,
@@ -65,8 +58,8 @@ const updateTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 exports.updateTodo = updateTodo;
 const deleteTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const deleteTodo = yield todo_1.default.findByIdAndRemove(req.params.id);
-        const allTodos = yield todo_1.default.find();
+        const deleteTodo = yield Todo_1.Todo.findByIdAndRemove(req.params.id);
+        const allTodos = yield Todo_1.Todo.find();
         res.status(201).json({
             message: "Todo Deleted",
             todo: deleteTodo,

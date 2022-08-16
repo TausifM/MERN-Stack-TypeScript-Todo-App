@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ITodo } from "../types/todo";
-import Todo from "../models/todo";
+import {Todo} from "../models/Todo";
 
 const getTodos = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -15,17 +15,14 @@ const getTodos = async (req: Request, res: Response): Promise<void> => {
 
 const addTodo = async (req: Request, res: Response): Promise<void> => {
   try {
-    const body = req.body as Pick<ITodo, "name" | "desc" | "status">;
-    const todo: ITodo = new Todo({
-      name: body.name,
-      desc: body.desc,
-      status: body.status,
-    });
-    const newTodo: ITodo = await todo.save();
+    const body = req.body as Pick<ITodo, "name" | "desc" | "status">
+    const newTodo: ITodo = new Todo(body);
+    const savedTodo: ITodo | null = await newTodo.save();
     const allTodos: ITodo[] = await Todo.find();
+
     res.status(201).json({
       message: "Todo added",
-      todo: newTodo,
+      todo: savedTodo,
       todos: allTodos,
     });
   } catch (error) {

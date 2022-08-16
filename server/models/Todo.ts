@@ -8,18 +8,16 @@ const todoSchema: Schema = new Schema(
       required: true,
     },
 
-    description: {
+    desc: {
       type: String,
       required: true,
     },
 
     status: {
       type: Boolean,
-      required: true,
     },
   },
   { timestamps: true }
 );
 
-
-export default model<ITodo>("Todo", todoSchema)
+export const Todo = model<ITodo>("Todo", todoSchema);
