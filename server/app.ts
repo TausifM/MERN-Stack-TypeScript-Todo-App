@@ -8,6 +8,7 @@ const app: Express = express();
 const PORT: string | number = process.env.PORT || 4000;
 
 app.use(cors());
+app.use(express.json());
 app.use(todoRoutes);
 console.log(process.env.MONGO_URI);
 mongoose

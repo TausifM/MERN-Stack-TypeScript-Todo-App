@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import TodoItem from "./components/TodoItem";
 import AddTodo from "./components/AddTodo";
 import { getTodos, addTodo, updateTodo, deleteTodo } from "./API";
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Demo from "./powerbi-react/Demo";
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([]);
@@ -47,6 +48,10 @@ function App() {
 
   return (
      <main className='App'>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/demo" element={<Demo/>}/>
+      </Routes>
       <h1>My Todos</h1>
       <AddTodo saveTodo={handleSaveTodo} />
       {todos.map((todo: ITodo) => (
@@ -57,6 +62,7 @@ function App() {
           todo={todo}
         />
       ))}
+      </BrowserRouter>
     </main>
   );
 }

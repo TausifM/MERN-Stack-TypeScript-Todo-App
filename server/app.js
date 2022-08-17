@@ -10,6 +10,7 @@ const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 4000;
 app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 app.use(routes_1.default);
 console.log(process.env.MONGO_URI);
 mongoose_1.default
